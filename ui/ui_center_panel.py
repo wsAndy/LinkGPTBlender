@@ -6,6 +6,9 @@ from ..utils import compatibility as compat
 
 from ..op import op_center_panel
 
+
+# 处理逻辑可以参考：https://github.com/gd3kr/BlenderGPT/blob/main/utilities.py
+
 @BlClassRegistry()
 @compat.ChangeRegionType(region_type='TOOLS')
 class UI_Center_Panel(bpy.types.Panel):
