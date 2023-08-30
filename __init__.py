@@ -17,9 +17,11 @@ bl_info = {
 }
 
 
+import bpy
 # from . import auto_load
 from . import utils
 utils.bl_class_registry.BlClassRegistry.cleanup()
+
 
 from . import ui
 from . import op
@@ -33,6 +35,8 @@ def register():
 
 def unregister(): 
     utils.bl_class_registry.BlClassRegistry.unregister()
+
+    global_param.release()
 
 
 if __name__ == "__main__":

@@ -6,17 +6,16 @@ from ..utils import compatibility as compat
 
 from ..op import op_center_panel
 
-
-# 处理逻辑可以参考：https://github.com/gd3kr/BlenderGPT/blob/main/utilities.py
-
+# 一个UI面板
 @BlClassRegistry()
 @compat.ChangeRegionType(region_type='TOOLS')
-class UI_Center_Panel(bpy.types.Panel):
-    bl_idname = "ui.center_panel"
-    bl_label = "CenterPanel"
+class ui_center_panel(bpy.types.Panel):
+    bl_idname = "ui.ui_center_panel"
+    bl_label = "PoseChange"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "LinkGPT" 
+    bl_category = "LinkGPT"
+    bl_options = {'DEFAULT_CLOSED'}
 
     def draw_header(self, _):
         layout = self.layout
@@ -25,20 +24,15 @@ class UI_Center_Panel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
 
-        box = layout.box()
-        col = box.column()
-        title_size = 0.4
-        row = col.split(factor=title_size, align=True)
-        row.label(text='Input Message')
-        row.prop(context.scene.GlobalParam, "inputMessage", text="23")
+        row = layout.row(align=True)
+        row.label(text="Input Message:")
+        row = layout.row(align=True)
+        row.scale_y = 4
+        row.prop(context.scene, "linkgptMessage", text="")
+        
+        row.enabled = True
 
-        # 添加一个输入框
-        layout.label(text="Enter text:")
-        layout.prop(context.scene, "my_string_property", text="Enter Text" )  # 添加
-
-        # 添加一个显示框
-        layout.label(text="Result:")
-        # 显示字符串属性的值 
-        row_button = layout.row(align=True)
-        row_button.scale_y = 1.5
-        row_button.operator(op_center_panel.poll_step.bl_idname, text="Ask GPT")
+        row = layout.row(align=True)
+        row.scale_y = 2
+        row.operator(op_center_panel.poll_step.bl_idname, text="Ask GPT")
+        

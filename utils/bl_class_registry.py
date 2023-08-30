@@ -75,6 +75,7 @@ class BlClassRegistry:
     @classmethod
     def unregister(cls):
         for class_ in cls.class_list:
+            print(class_["class"])
             bpy.utils.unregister_class(class_["class"])
             common.debug_print("{} is unregistered from Blender."
                                .format(class_["bl_idname"]))
